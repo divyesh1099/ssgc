@@ -1,0 +1,25 @@
+{
+  "name": "ssgc",
+  "version": "1.0.0",
+  "description": "Papa ke liye website",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/divyesh1099/ssgc.git"
+  },
+  "author": "Divyesh Nandlal Vishwakarma",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/divyesh1099/ssgc/issues"
+  },
+  "homepage": "https://github.com/divyesh1099/ssgc#readme",
+  "dependencies": {
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.4"
+  }
+}

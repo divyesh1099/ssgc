@@ -1,0 +1,56 @@
+<%- include("partials/header") %>
+<%- include("partials/title") %>
+Home
+<%- include("partials/body") %>
+<div class="container">
+    <% for(j=0;j<=1;j++){ %>
+        <div class="row">
+            <div class="col-12">
+                <div class="card mt-1">
+                    <div class="card-header">
+                        <div class="row">
+                            <h5 class="card-title m-2">Product Type</h5>
+                            <a class="ml-auto btn btn-md btn-primary" href="/type/new"><i class="fa fa-plus"></i></a>
+                            <a class="ml-1 btn btn-md btn-danger" href="#"><i class="fa fa-minus"></i></a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="card-group">
+                            <% for(i=0;i<=1;i++){ %>
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="card m-1 bg-light">
+                                        <img src="https://images.unsplash.com/photo-1579165466741-7f35e4755660?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" class="card-img">
+                                        <div class="card-img-overlay">
+                                            <div class="row d-flex align-items-start">
+                                                <div class="col d-flex justify-content-between">
+                                                    <a href="#" class="btn btn-sm btn-primary">Details</a>
+                                                    <a href="#" class="btn btn-sm btn-success">Buy</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <h5 class="card-title m-1">Product Name</h5> 
+                                                <a href="#" class="btn btn-sm btn-info ml-auto"><i class="fa fa-pencil"></i></a>
+                                                <a href="#" class="btn btn-sm btn-danger ml-1"><i class="fa fa-minus"></i></a>
+                                            </div>                               
+                                            <p class="card-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vel, tempora!</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            <% } %>                                                           
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="card m-1 bg-light">
+                                        <a href="/product/new" class="m-auto"><i class="fa fa-plus fa-10x"></i></a> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% } %>
+</div>
+<%- include("partials/footer") %>
