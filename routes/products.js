@@ -4,14 +4,32 @@ var express         = require("express"),
     Type            = require("../models/type");
 ///////////////////////////////////////////////////////////////////////
 //All PRODUCTS
-router.get("/type/:id/product/all",(req,res)=>{
-    Type.findById(req.params.id,(err,type)=>{
+router.get("/product/all",(req,res)=>{
+    Type.find().populate("products").exec((err,type)=>{
         if(err){
             console.log("Type not found for creating a new product");
             console.log(err);
         }
         else{
-            res.render("products/productall",{type:type});
+            Product.find({},(err,product)=>{
+                if(err){
+                    console.log("ALL PRODUCTS ROUTE");
+                    console.log(err);
+                }
+                else{
+                    if(product.length==0){
+                        console.log("NO PRODUCT");
+                        res.redirect("/");
+                    }
+                    else{
+                        res.render("products/productall",{
+                            type:type,
+                            product:product
+                        });
+                    }
+                    
+                }
+            });
         }
     });
 });
@@ -131,5 +149,5 @@ router.delete("/type/:id/product/:product_id",(req,res)=>{
         }
     });
 });
-///////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
 module.exports=router;

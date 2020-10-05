@@ -2,18 +2,6 @@ var express         = require("express"),
     router          = express.Router(),
     Type            = require("../models/type");
 ///////////////////////////////////////////////////////////////////////
-//TYPE
-router.get("/type",(req,res)=>{
-    Type.find({},(err,type)=>{
-        if(err){
-            console.log("TYPE TYPE ERROR");
-            console.log(err);
-        }
-        else{
-            res.render("types/type",{type:type});
-        }
-    });
-});
 //NEW TYPE
 router.get("/type/new",(req,res)=>{
     Type.find({},(err,type)=>{
@@ -22,11 +10,25 @@ router.get("/type/new",(req,res)=>{
             console.log(err);
         }
         else{
-            console.log(type);
             res.render("types/new",{type:type});
         }
     });
-    // res.render("types/new");
+});
+//TYPE
+router.get("/type/:id",(req,res)=>{
+    Type.findById(req.params.id).populate("product").exec((err, type)=>{
+        if(err){
+            console.log("TYPE GET ROUTE ERROR");
+            console.log(err);
+        }
+        else{
+            console.log(type.product[0].name);
+            res.render("types/type",{
+                type:type,
+                product:type.product
+            });                                
+        }
+    });
 });
 //POST TYPE
 router.post("/type", (req,res)=>{
@@ -67,15 +69,38 @@ router.put("/type/:id",(req,res)=>{
 });
 //DESTROY TYPE
 router.delete("/type/:id",(req,res)=>{
-    Type.findByIdAndRemove(req.params.id,(err)=>{
+    Type.findById(req.params.id,(err,type)=>{
         if(err){
-            console.log("DELETE TYPE ERROR");
-            console.log(err);
+            console.log("DESTROY TYPE ROUTE ERROR"+err);
         }
         else{
-            console.log("DELETED TYPE");
-            res.redirect("/");
+            Product.find({},(err, product)=>{
+                if(err){
+                    console.log("PRODUCT NOT FOUND");
+                }
+                else{
+                    console.log(product);
+                    for(var a=0;a<product.length;a++){
+                        Product.findByIdAndRemove(product[a].id,(err)=>{
+                            if(err){
+                                console.log("DELETED PRODUCT WHILE DELETING TYPE ERROR: "+err);
+                            }
+                            else{}
+                        });
+                    }
+                }
+            });       
         }
+        Type.findByIdAndRemove(req.params.id,(err)=>{
+            if(err){
+                console.log("DELETE TYPE ERROR");
+                console.log(err);
+            }
+            else{
+                console.log("DELETED TYPE");
+                res.redirect("/");
+            }
+        });
     });
 });
 ///////////////////////////////////////////////////////////////////////
