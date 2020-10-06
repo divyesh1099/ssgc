@@ -1,0 +1,14 @@
+<%- include("partials/header") %>
+<%- include("partials/title") %>
+Search
+<%- include("partials/body") %>
+<div class="jumbotron">
+    <h1>SEARCH PAGE</h1>
+    <p>This is search page</p>
+</div>
+<% for(var e=0;e<sql.length;e++){ %>
+    <ul>
+        <li><%= sql[e] %></li>
+    </ul>
+<% } %>
+<%- include("partials/footer") %>

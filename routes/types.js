@@ -14,6 +14,20 @@ router.get("/type/new",(req,res)=>{
         }
     });
 });
+//ALL TYPE
+router.get("/type/all",(req,res)=>{
+    Type.find().populate("product").exec((err,type)=>{
+        if(err){
+            console.log("ALL TYPE FIND ERROR"+err);
+        }
+        else{
+            res.render("types/typeall",{
+                type:type,
+                product:type.product
+            });
+        }
+    });    
+});
 //TYPE
 router.get("/type/:id",(req,res)=>{
     Type.findById(req.params.id).populate("product").exec((err, type)=>{
@@ -22,13 +36,12 @@ router.get("/type/:id",(req,res)=>{
             console.log(err);
         }
         else{
-            console.log(type.product[0].name);
             res.render("types/type",{
                 type:type,
                 product:type.product
             });                                
         }
-    });
+    });            
 });
 //POST TYPE
 router.post("/type", (req,res)=>{
