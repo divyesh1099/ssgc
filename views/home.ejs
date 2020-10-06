@@ -19,8 +19,8 @@ Home
                     <div class="card-body">
                         <div class="row">
                             <div class="card-columns">
-                                <% for(var l=0;l<type[k].product.length;l++){ %>
-                                    <% if(k<7){ %>
+                                <% for(var l=0;l<type[k].product.length && l<7;l++){ %>
+                                    <!-- <% if(k<7){ %> -->
                                         <!-- <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12"> -->
                                             <div class="card m-1 bg-light">
                                                 <img src="<%= type[k].product[l].imageOne %>" class="card-img">
@@ -48,7 +48,7 @@ Home
                                                 </div>
                                             </div>
                                         <!-- </div> -->
-                                    <% } %>
+                                    <!-- <% } %> -->
                                     
                                 <% } %>                                  
                             </div>
