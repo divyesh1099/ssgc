@@ -9,7 +9,16 @@ New Product
             <div class="card">
                 <div class="card-header d-flex justify-content-center"><h1>NEW PRODUCT</h1></div>
                 <div class="card-body">
-                    <form action="/type/<%= type._id %>/product" method="POST">    
+                    <form action="/type/<%= type._id %>/product" method="POST" enctype="multipart/form-data">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                            </div>
+                            <div class="custom-file">
+                              <input type="file" multiple accept="image/*" name="image" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                              <label class="custom-file-label" for="inputGroupFile01">Choose 3 Files</label>
+                            </div>
+                        </div>           
                         <div class="form-group">
                             <label for="nameofproduct">Image 1</label>
                             <input type="text" name="product[imageOne]" id="nameofproduct" class="form-control">

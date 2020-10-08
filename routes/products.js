@@ -1,8 +1,10 @@
 var express         = require("express"),
     router          = express.Router(),
     Product         = require("../models/product"),
-    Type            = require("../models/type");
+    Type            = require("../models/type"),
+    upload          = require("../middleware/upload");
 ///////////////////////////////////////////////////////////////////////
+
 //All PRODUCTS
 router.get("/product/all",(req,res)=>{
     Type.find().populate("products").exec((err,type)=>{
@@ -24,10 +26,9 @@ router.get("/product/all",(req,res)=>{
                     else{
                         res.render("products/productall",{
                             type:type,
-                            product:product
+                            product:product,
                         });
-                    }
-                    
+                    }                    
                 }
             });
         }
@@ -41,7 +42,9 @@ router.get("/type/:id/product/new",(req,res)=>{
             console.log(err);
         }
         else{
-            res.render("products/new",{type:type});
+            res.render("products/new",{
+                type:type,
+            });
         }
     });
 });
@@ -70,6 +73,20 @@ router.get("/type/:id/product/:product_id",(req,res)=>{
 });
 //POST PRODUCT
 router.post("/type/:id/product", (req,res)=>{
+    upload(req,res,(err)=>{
+        if(err){
+            console.log("UPLOAD ERROR "+err);
+        }
+        else{
+            if(req.files==undefined){
+            res.redirect("/");
+            console.log("NO FILE");
+            }
+            else{
+                console.log("UPLOADED FILES");
+            }
+        } 
+    });
     Type.findById(req.params.id,(err,type)=>{
         if(err){
             console.log("Post product type not found");
@@ -78,7 +95,6 @@ router.post("/type/:id/product", (req,res)=>{
         else{
             Product.create(req.body.product,(err, product)=>{
                 if(err){
-
                     console.log("PRODUCT TYPE NOT FOUND ERROR");
                     console.log(err);
                 }
@@ -105,7 +121,7 @@ router.get("/type/:id/product/:product_id/edit",(req,res)=>{
                     console.log("EDIT PRODUCT NOT FOUND ERROR");
                     console.log(err);
                 }
-                else{
+                 else{
                     res.render("products/edit",{
                         type:type,
                         product:product
